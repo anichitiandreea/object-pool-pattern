@@ -2,17 +2,14 @@
 {
     public class ObjectPool<T>(int objectLimit = 100) where T : IResettable, new()
     {
-        private readonly List<T> objects = new(objectLimit);
+        private readonly Queue<T> objects = new(objectLimit);
         private readonly int objectLimit = objectLimit;
 
         public T GetObject()
         {
             if (objects.Count != 0)
             {
-                var returnedObject = objects.First();
-                objects.Remove(returnedObject);
-
-                return returnedObject;
+                return objects.Dequeue();
             }
 
             return new T();
@@ -32,7 +29,7 @@
 
             obj.Reset();
 
-            objects.Add(obj);
+            objects.Enqueue(obj);
         }
     }
 }

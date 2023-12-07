@@ -2,14 +2,14 @@
 {
     public class Student() : IResettable
     {
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public int? Age { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public int Age { get; set; } = 0;
 
         public void Reset()
         {
-            FirstName = null;
-            LastName = null;
+            FirstName = string.Empty;
+            LastName = string.Empty;
             Age = 0;
         }
     }
