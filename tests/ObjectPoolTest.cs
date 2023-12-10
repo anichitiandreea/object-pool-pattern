@@ -52,5 +52,22 @@ namespace Tests
             // Assert
             Assert.Equal(2, objectPool.GetCurrentCapacity());
         }
+
+        [Fact]
+        public void GivenObjectPoolWhenDisposablePoolThenCheckDisposedObjects()
+        {
+            // Arrange
+            var objectPool = new ObjectPool<Student>(2);
+
+            // Act
+            var object1 = objectPool.GetObject();
+
+            objectPool.ReturnObject(object1);
+
+            objectPool.Dispose();
+
+            // Assert
+            Assert.True(object1.IsDisposed);
+        }
     }
 }
