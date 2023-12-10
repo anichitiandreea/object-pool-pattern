@@ -14,7 +14,7 @@ namespace Tests
             var object1 = objectPool.GetObject();
 
             // Assert
-            Assert.Equal(0, objectPool.GetObjectCount());
+            Assert.Equal(0, objectPool.GetCurrentCapacity());
             Assert.NotNull(object1);
         }
 
@@ -25,13 +25,13 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            var object1 = objectPool.GetObject();
+            _ = objectPool.GetObject();
             var object2 = objectPool.GetObject();
 
             objectPool.ReturnObject(object2);
 
             // Assert
-            Assert.Equal(1, objectPool.GetObjectCount());
+            Assert.Equal(1, objectPool.GetCurrentCapacity());
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Tests
             objectPool.ReturnObject(object3);
 
             // Assert
-            Assert.Equal(2, objectPool.GetObjectCount());
+            Assert.Equal(2, objectPool.GetCurrentCapacity());
         }
     }
 }
