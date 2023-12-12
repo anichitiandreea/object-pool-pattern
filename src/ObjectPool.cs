@@ -6,6 +6,7 @@
         private readonly int capacity = capacity;
 
         private int CurrentCapacity => objects.Count;
+        public bool IsDisposed { get; private set; }
 
         public T GetObject()
         {
@@ -52,6 +53,8 @@
             }
 
             objects.Clear();
+
+            this.IsDisposed = true;
 
             GC.SuppressFinalize(this);
         }

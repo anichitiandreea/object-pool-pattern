@@ -19,7 +19,7 @@ namespace Tests
         }
 
         [Fact]
-        public void GivenReturnObjectWhenObjectReturnedThenCheckPoolCount()
+        public void GivenReturnObjectWhenObjectReturnedThenCheckReturnedObject()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(2);
@@ -31,7 +31,7 @@ namespace Tests
             objectPool.ReturnObject(object2);
 
             // Assert
-            Assert.Equal(1, objectPool.GetCurrentCapacity());
+            Assert.Same(object2, objectPool.GetObject());
         }
 
         [Fact]
@@ -51,6 +51,7 @@ namespace Tests
 
             // Assert
             Assert.Equal(2, objectPool.GetCurrentCapacity());
+            Assert.True(object3.IsDisposed);
         }
 
         [Fact]
@@ -68,6 +69,23 @@ namespace Tests
 
             // Assert
             Assert.True(object1.IsDisposed);
+        }
+
+        [Fact]
+        public void GivenObjectPoolWhenDisposablePoolThenCheckDisposedPool()
+        {
+            // Arrange
+            var objectPool = new ObjectPool<Student>(2);
+
+            // Act
+            var object1 = objectPool.GetObject();
+
+            objectPool.ReturnObject(object1);
+
+            objectPool.Dispose();
+
+            // Assert
+            Assert.True(objectPool.IsDisposed);
         }
     }
 }
