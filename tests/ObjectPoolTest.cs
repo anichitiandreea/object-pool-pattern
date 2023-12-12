@@ -87,5 +87,22 @@ namespace Tests
             // Assert
             Assert.True(objectPool.IsDisposed);
         }
+
+        [Fact]
+        public void GivenObjectPoolWhenExceptionThrownThenHandleGracefully()
+        {
+            // Arrange
+            var objectPool = new ObjectPool<Student>(2);
+
+            // Act
+            var object1 = objectPool.GetObject();
+
+            objectPool.ReturnObject(object1);
+
+            objectPool.Dispose();
+
+            // Assert
+            Assert.Throws<ObjectDisposedException>(() => objectPool.GetObject());
+        }
     }
 }

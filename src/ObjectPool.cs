@@ -10,6 +10,8 @@
 
         public T GetObject()
         {
+            ObjectDisposedException.ThrowIf(IsDisposed, this);
+
             if (CurrentCapacity != 0)
             {
                 return objects.Dequeue();
