@@ -5,7 +5,7 @@
         private readonly Queue<T> objects = new(capacity);
         private readonly int capacity = capacity;
 
-        private int CurrentCapacity => objects.Count;
+        public int CurrentCapacity => objects.Count;
         public bool IsDisposed { get; private set; }
 
         public T GetObject()
@@ -18,11 +18,6 @@
             }
 
             return new T();
-        }
-
-        public int GetCurrentCapacity()
-        {
-            return CurrentCapacity;
         }
 
         public void ReturnObject(T instance)

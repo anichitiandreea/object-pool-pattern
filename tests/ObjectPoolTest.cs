@@ -5,7 +5,7 @@ namespace Tests
     public class ObjectPoolTest
     {
         [Fact]
-        public void GivenGetObjectWhenPoolIsEmptyThenCheckPoolCount()
+        public void GivenObjectPoolWhenPoolIsEmptyThenCheckPoolCapacity()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(3);
@@ -14,12 +14,12 @@ namespace Tests
             var object1 = objectPool.GetObject();
 
             // Assert
-            Assert.Equal(0, objectPool.GetCurrentCapacity());
+            Assert.Equal(0, objectPool.CurrentCapacity);
             Assert.NotNull(object1);
         }
 
         [Fact]
-        public void GivenReturnObjectWhenObjectReturnedThenCheckReturnedObject()
+        public void GivenObjectPoolWhenObjectReturnedThenCheckReturnedObject()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(2);
@@ -35,7 +35,7 @@ namespace Tests
         }
 
         [Fact]
-        public void GivenReturnObjectWhenManyObjectsReturnedThenCheckPoolCount()
+        public void GivenObjectPoolWhenManyObjectsReturnedThenCheckPoolCapacity()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(2);
@@ -50,12 +50,12 @@ namespace Tests
             objectPool.ReturnObject(object3);
 
             // Assert
-            Assert.Equal(2, objectPool.GetCurrentCapacity());
+            Assert.Equal(2, objectPool.CurrentCapacity);
             Assert.True(object3.IsDisposed);
         }
 
         [Fact]
-        public void GivenObjectPoolWhenDisposablePoolThenCheckDisposedObjects()
+        public void GivenObjectPoolWhenDisposedPoolThenCheckDisposedObjects()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(2);
@@ -72,7 +72,7 @@ namespace Tests
         }
 
         [Fact]
-        public void GivenObjectPoolWhenDisposablePoolThenCheckDisposedPool()
+        public void GivenObjectPoolWhenDisposedPoolThenCheckIfDisposed()
         {
             // Arrange
             var objectPool = new ObjectPool<Student>(2);
