@@ -11,7 +11,7 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(3);
 
             // Act
-            var object1 = objectPool.GetObject();
+            var object1 = objectPool.Get();
 
             // Assert
             Assert.Equal(0, objectPool.CurrentCapacity);
@@ -25,13 +25,13 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            _ = objectPool.GetObject();
-            var object2 = objectPool.GetObject();
+            _ = objectPool.Get();
+            var object2 = objectPool.Get();
 
-            objectPool.ReturnObject(object2);
+            objectPool.Return(object2);
 
             // Assert
-            Assert.Same(object2, objectPool.GetObject());
+            Assert.Same(object2, objectPool.Get());
         }
 
         [Fact]
@@ -41,13 +41,13 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            var object1 = objectPool.GetObject();
-            var object2 = objectPool.GetObject();
-            var object3 = objectPool.GetObject();
+            var object1 = objectPool.Get();
+            var object2 = objectPool.Get();
+            var object3 = objectPool.Get();
 
-            objectPool.ReturnObject(object1);
-            objectPool.ReturnObject(object2);
-            objectPool.ReturnObject(object3);
+            objectPool.Return(object1);
+            objectPool.Return(object2);
+            objectPool.Return(object3);
 
             // Assert
             Assert.Equal(2, objectPool.CurrentCapacity);
@@ -61,9 +61,9 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            var object1 = objectPool.GetObject();
+            var object1 = objectPool.Get();
 
-            objectPool.ReturnObject(object1);
+            objectPool.Return(object1);
 
             objectPool.Dispose();
 
@@ -78,9 +78,9 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            var object1 = objectPool.GetObject();
+            var object1 = objectPool.Get();
 
-            objectPool.ReturnObject(object1);
+            objectPool.Return(object1);
 
             objectPool.Dispose();
 
@@ -95,14 +95,14 @@ namespace Tests
             var objectPool = new ObjectPool<Student>(2);
 
             // Act
-            var object1 = objectPool.GetObject();
+            var object1 = objectPool.Get();
 
-            objectPool.ReturnObject(object1);
+            objectPool.Return(object1);
 
             objectPool.Dispose();
 
             // Assert
-            Assert.Throws<ObjectDisposedException>(() => objectPool.GetObject());
+            Assert.Throws<ObjectDisposedException>(() => objectPool.Get());
         }
     }
 }

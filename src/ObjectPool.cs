@@ -8,7 +8,7 @@
         public int CurrentCapacity => objects.Count;
         public bool IsDisposed { get; private set; }
 
-        public T GetObject()
+        public T Get()
         {
             ObjectDisposedException.ThrowIf(IsDisposed, this);
 
@@ -20,7 +20,7 @@
             return new T();
         }
 
-        public void ReturnObject(T instance)
+        public void Return(T instance)
         {
             if (CurrentCapacity == capacity)
             {
@@ -56,9 +56,9 @@
             GC.SuppressFinalize(this);
         }
 
-        private static bool IsDisposableObject(T obj)
+        private static bool IsDisposableObject(T instance)
         {
-            return obj is IDisposable;
+            return instance is IDisposable;
         }
     }
 }
